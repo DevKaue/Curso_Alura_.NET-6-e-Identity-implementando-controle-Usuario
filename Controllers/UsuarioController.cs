@@ -13,9 +13,10 @@ namespace UsuariosApi.Controllers
         private IMapper _mapper;
         private UserManager<Usuario> _userManager;
 
-        public UsuarioController(IMapper mapper)
+        public UsuarioController(IMapper mapper, UserManager<Usuario> userManager)
         {
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpPost]
