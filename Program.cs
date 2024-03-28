@@ -19,7 +19,8 @@ builder.Services
     .AddEntityFrameworkStores<UsuarioDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<CadastroService>();
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<LoginService>();
 
 builder.Services.AddAutoMapper
     (AppDomain.CurrentDomain.GetAssemblies());
