@@ -21,6 +21,7 @@ builder.Services
 
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddAutoMapper
     (AppDomain.CurrentDomain.GetAssemblies());

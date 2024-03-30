@@ -9,14 +9,19 @@ namespace UsuariosApi.Services
     {
         private IMapper _mapper;
         private SignInManager<Usuario> _signInManager;
+        private TokenService _tokenService;
 
-        public LoginService(IMapper mapper, SignInManager<Usuario> signInManager)
+        public LoginService(IMapper mapper, 
+            SignInManager<Usuario> signInManager,
+            TokenService tokenService)
         {
             _mapper = mapper;
             _signInManager = signInManager;
+            _tokenService = tokenService;
+            
         }
 
-        public async Task Login(LoginUsuarioDto dto)
+        public async Task<string> Login(LoginUsuarioDto dto)
         {
             try 
             {
@@ -25,10 +30,19 @@ namespace UsuariosApi.Services
                 {
                     throw new ApplicationException("Usuário sem autenticação");
                 }
+
+                var usuario = _signInManager
+                    .UserManager
+                    .Users
+                    .FirstOrDefault(user => user.NormalizedUserName == dto.Username.ToUpper());
+
+                var token = _tokenService.GenerateToken(usuario);
+                return token;
             }
             catch (Exception ex) 
             {
                 Console.WriteLine("Erro apresentado: " + ex.Message);
+                return null;
             }
         }
     }
